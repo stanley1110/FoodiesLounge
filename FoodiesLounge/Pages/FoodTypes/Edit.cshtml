@@ -1,0 +1,24 @@
+﻿@page
+@model FoodiesLounge.Pages.FoodTypes.EditModel
+@{
+}
+<partial name="_Notification"></partial>
+<form method="post">
+    <input hidden asp-for="Food.Id" />
+    <div class="border p-3 mt-4">
+        <div class="row pb-2">
+            <h2 class="text-primary pl-3">Edit Food</h2>
+            <hr />
+            <div class="mb-3">
+                 <label asp-for="Food.name"></label>
+                <input  asp-for="Food.name" class="form-control"/>
+                <span asp-validation-for="Food.name" class="text-danger"></span>
+            </div>
+         
+            <button type="submit" class="btn btn-primary" style="width:120px;"> Update</button>
+            <a asp-page = "Index" class="btn btn-secondary" style="width:120px;">Back to List</a>
+        </div>
+
+    </div>
+</form>
+

@@ -1,10 +1,11 @@
-using FoodiesLounge.Datas;
-using FoodiesLounge.Models;
+
+using FoodiesLoungeDataAccess;
+using FoodiesLoungeModel;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 
-namespace FoodiesLounge.Pages.Categories
+namespace FoodiesLounge.Pages.Admin.Categories
 {
     public class IndexModel : PageModel
     {

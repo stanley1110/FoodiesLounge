@@ -1,15 +1,16 @@
-using FoodiesLounge.Datas;
-using FoodiesLounge.Models;
+
+using FoodiesLoungeDataAccess;
+using FoodiesLoungeModel;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace FoodiesLounge.Pages.Categories
+namespace FoodiesLounge.Pages.FoodTypes
 {
     [BindProperties]
     public class CreateModel : PageModel
     {
        
-        public Category  Category { get; set; }
+        public FoodType   FoodType { get; set; }
         private readonly AppDbContext _db;
         public CreateModel(AppDbContext db)
         {
@@ -18,13 +19,13 @@ namespace FoodiesLounge.Pages.Categories
         public void OnGet()
         {
         }
-        public async Task<IActionResult> OnPost( Category category)
+        public async Task<IActionResult> OnPost( FoodType  foodType)
         {
             if(ModelState.IsValid)
             {
-                await _db.Categories.AddAsync(category);
+                await _db.FoodTypes.AddAsync(foodType);
                 await _db.SaveChangesAsync();
-                TempData["Success"] = "Category successfully created";
+                TempData["Success"] = $"{foodType.name} record successfully created";
                 return RedirectToPage("Index");
 
             }

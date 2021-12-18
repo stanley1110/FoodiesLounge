@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace FoodiesLounge.Models
+namespace FoodiesLoungeModel
 {
     public class Category
     {

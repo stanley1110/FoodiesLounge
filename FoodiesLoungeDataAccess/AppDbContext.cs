@@ -1,7 +1,8 @@
-﻿using FoodiesLounge.Models;
+﻿
+using FoodiesLoungeModel;
 using Microsoft.EntityFrameworkCore;
 
-namespace FoodiesLounge.Datas
+namespace FoodiesLoungeDataAccess
 {
    
         public class AppDbContext : DbContext
@@ -11,7 +12,8 @@ namespace FoodiesLounge.Datas
 
             }
             public DbSet<Category> Categories { get; set; }
+        public DbSet<FoodType> FoodTypes { get; set; }
 
-        }
+    }
     
 }

@@ -1,4 +1,5 @@
-using FoodiesLounge.Datas;
+
+using FoodiesLoungeDataAccess;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
