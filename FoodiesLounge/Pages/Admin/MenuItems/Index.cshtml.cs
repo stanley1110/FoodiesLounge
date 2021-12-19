@@ -6,20 +6,20 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 
-namespace FoodiesLounge.Pages.FoodTypes
+namespace FoodiesLounge.Pages.Admin.MenuItems
 {
     public class IndexModel : PageModel
     {
-        private IFoodTypeRepo _db;
-        public IEnumerable<FoodType>   FoodTypes { get; set;}
+        private IMenuItemRepo _db;
+        public IEnumerable<MenuItem>  menuItems { get; set;}
 
-        public IndexModel( IFoodTypeRepo appDb)
+        public IndexModel( IMenuItemRepo appDb)
         {
             _db = appDb;
         }
         public void OnGet()
         {
-            FoodTypes = _db.GetAll();
+            menuItems = _db.GetAll();
         }
     }
 }

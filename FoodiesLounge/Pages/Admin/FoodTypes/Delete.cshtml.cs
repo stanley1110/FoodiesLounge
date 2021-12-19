@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 
-namespace FoodiesLounge.Pages.FoodTypes
+namespace FoodiesLounge.Pages.Admin.FoodTypes
 {
  
     public class DeleteModel : PageModel

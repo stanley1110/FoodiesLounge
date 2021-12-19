@@ -5,7 +5,7 @@ using FoodiesLoungeModel;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace FoodiesLounge.Pages.FoodTypes
+namespace FoodiesLounge.Pages.Admin.FoodTypes
 {
     [BindProperties]
     public class CreateModel : PageModel

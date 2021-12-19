@@ -13,7 +13,8 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 
 });
 builder.Services.AddScoped<ICategoryRepo, CategoryRepo>();
-
+builder.Services.AddScoped<IFoodTypeRepo, FoodTypeRepo>();
+builder.Services.AddScoped<IMenuItemRepo, MenuItemRepo>();
 
 var app = builder.Build();
 
