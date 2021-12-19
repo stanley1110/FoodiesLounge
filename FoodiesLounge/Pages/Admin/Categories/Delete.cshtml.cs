@@ -1,5 +1,6 @@
 
 using FoodiesLoungeDataAccess;
+using FoodiesLoungeDataAccess.Repository;
 using FoodiesLoungeModel;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -12,21 +13,21 @@ namespace FoodiesLounge.Pages.Admin.Categories
     {
         [BindProperty]
         public Category category { get; set; }
-        private readonly AppDbContext _db;
-        public DeleteModel(AppDbContext db)
+        private ICategoryRepo _db;
+        public DeleteModel(ICategoryRepo db)
         {
             _db = db;
         }
         public void OnGet(int id)
         {
-            category = _db.Categories.Find(id);
+            category = _db.GetFirstOrDefault(u=> u.Id == id);
         }
         public async Task<IActionResult> OnPost(Category category)
         {
             
                
-                    _db.Categories.Remove(category);
-                    await _db.SaveChangesAsync();
+                    _db.Remove(category);
+                   _db.Save();
                 TempData["Success"] = "Category successfully Deleted";
                     return RedirectToPage("Index");
 

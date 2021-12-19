@@ -1,5 +1,6 @@
 
 using FoodiesLoungeDataAccess;
+using FoodiesLoungeDataAccess.Repository;
 using FoodiesLoungeModel;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -9,16 +10,16 @@ namespace FoodiesLounge.Pages.Admin.Categories
 {
     public class IndexModel : PageModel
     {
-        private readonly AppDbContext _db;
+        private ICategoryRepo _db;
         public IEnumerable<Category>  Categories { get; set;}
 
-        public IndexModel( AppDbContext appDb)
+        public IndexModel( ICategoryRepo appDb)
         {
             _db = appDb;
         }
         public void OnGet()
         {
-            Categories = _db.Categories;
+            Categories = _db.GetAll();
         }
     }
 }

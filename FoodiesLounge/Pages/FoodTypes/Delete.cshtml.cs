@@ -1,5 +1,6 @@
 
 using FoodiesLoungeDataAccess;
+using FoodiesLoungeDataAccess.Repository;
 using FoodiesLoungeModel;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -12,21 +13,21 @@ namespace FoodiesLounge.Pages.FoodTypes
     {
         [BindProperty]
         public FoodType  FoodType { get; set; }
-        private readonly AppDbContext _db;
-        public DeleteModel(AppDbContext db)
+        private IFoodTypeRepo _db;
+        public DeleteModel(IFoodTypeRepo db)
         {
             _db = db;
         }
         public void OnGet(int id)
         {
-            FoodType = _db.FoodTypes.Find(id);
+            FoodType = _db.GetFirstOrDefault(u=> u.Id ==id);
         }
         public async Task<IActionResult> OnPost(FoodType foodType)
         {
             
                
-                    _db.FoodTypes.Remove(foodType);
-                    await _db.SaveChangesAsync();
+                    _db.Remove(foodType);
+                     _db.Save();
                 TempData["Success"] = $"{foodType.name} record successfully deleted";
             return RedirectToPage("Index");
 

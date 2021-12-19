@@ -1,5 +1,6 @@
 
 using FoodiesLoungeDataAccess;
+using FoodiesLoungeDataAccess.Repository;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -11,6 +12,7 @@ builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DataConnection"));
 
 });
+builder.Services.AddScoped<ICategoryRepo, CategoryRepo>();
 
 
 var app = builder.Build();

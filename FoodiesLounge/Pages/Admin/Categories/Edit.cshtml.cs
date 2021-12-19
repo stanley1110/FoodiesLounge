@@ -1,5 +1,6 @@
 
 using FoodiesLoungeDataAccess;
+using FoodiesLoungeDataAccess.Repository;
 using FoodiesLoungeModel;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -11,22 +12,22 @@ namespace FoodiesLounge.Pages.Admin.Categories
     {
         [BindProperty]
         public Category  Category { get; set; }
-        private readonly AppDbContext _db;
-        public EditModel(AppDbContext db)
+        private ICategoryRepo _db;
+        public EditModel(ICategoryRepo db)
         {
             _db = db;
         }
         public async void OnGet(int id)
         {
-            Category =  _db.Categories.Find(id);
+            Category =  _db.GetFirstOrDefault(u => u.Id == id);
 
         }
         public async Task<IActionResult> OnPost( Category category)
         {
             if(ModelState.IsValid)
             {
-                 _db.Categories.Update(category);
-                await _db.SaveChangesAsync();
+                 _db.Update(category);
+                 _db.Save();
                 TempData["Success"] = "Category successfully Upadted";
                 return RedirectToPage("Index");
 

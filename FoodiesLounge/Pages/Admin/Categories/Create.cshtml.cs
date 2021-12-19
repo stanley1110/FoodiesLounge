@@ -1,5 +1,6 @@
 
 using FoodiesLoungeDataAccess;
+using FoodiesLoungeDataAccess.Repository;
 using FoodiesLoungeModel;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -11,8 +12,8 @@ namespace FoodiesLounge.Pages.Admin.Categories
     {
        
         public Category  Category { get; set; }
-        private readonly AppDbContext _db;
-        public CreateModel(AppDbContext db)
+        private ICategoryRepo   _db;
+        public CreateModel(ICategoryRepo db)
         {
             _db = db;
         }
@@ -23,8 +24,8 @@ namespace FoodiesLounge.Pages.Admin.Categories
         {
             if(ModelState.IsValid)
             {
-                await _db.Categories.AddAsync(category);
-                await _db.SaveChangesAsync();
+                 _db.Add(category);
+                 _db.Save();
                 TempData["Success"] = $"{category.name} record Category successfully created";
                 return RedirectToPage("Index");
 
