@@ -15,7 +15,8 @@ namespace FoodiesLounge.Pages.Admin.MenuItems
         private ICategoryRepo _db1;
         private IMenuItemRepo _db;
         private readonly IWebHostEnvironment _webHost;
-        public MenuItem  menuItems { get; set;}
+        [BindProperty]
+        public MenuItem   MenuItem { get; set;}
         public IEnumerable<SelectListItem>  CategoryList { get; set; }
         public IEnumerable<SelectListItem> FoodTypeList { get; set; }
 
@@ -25,10 +26,14 @@ namespace FoodiesLounge.Pages.Admin.MenuItems
             _db1 = db1;
             _db2 = db2;
             _webHost = webHost;
-            menuItems = new();
+            MenuItem = new();
         }
-        public void OnGet()
+        public void OnGet(int? id)
         {
+            if(id != null)
+            {
+                MenuItem = _db.GetFirstOrDefault(u => u.Id == id);
+            }
             CategoryList = _db1.GetAll().Select(c=> new SelectListItem()
             {
                 Text = c.name,
@@ -42,27 +47,50 @@ namespace FoodiesLounge.Pages.Admin.MenuItems
 
             });
         }
-        public async Task<IActionResult> OnPost(MenuItem menuItems ) 
+        public  IActionResult OnPost() 
         {
             string webRoothPath = _webHost.WebRootPath;
             var files = HttpContext.Request.Form.Files;
-            if(menuItems.Id == 0)
+            if(MenuItem.Id == 0)
             {
-                string ParenthPath = @"Images\MenuItems";
-                string filename = Guid.NewGuid().ToString();
-                var uploads = Path.Combine(webRoothPath,ParenthPath );
-                var extension = Path.GetExtension(files[0].FileName);    
-                using(var stream = new FileStream(Path.Combine(uploads,filename+extension),FileMode.Create))
-                {
-                    files[0].CopyTo(stream);
-                    menuItems.Image = ParenthPath + filename + extension;
-                    _db.Add(menuItems);
-                    _db.Save();
-                }
+                string fileName_new = Guid.NewGuid().ToString();
+                var uploads = Path.Combine(webRoothPath, @"Images\MenuItems");
+                var extension = Path.GetExtension(files[0].FileName);
 
+                using (var fileStream = new FileStream(Path.Combine(uploads, fileName_new + extension), FileMode.Create))
+                {
+                    files[0].CopyTo(fileStream);
+                }
+                MenuItem.Image = @"\Images\MenuItems\" + fileName_new + extension;
+            _db.Add(MenuItem);
+                _db.Save();
+                return RedirectToPage("Index"); 
             }
             else
             {
+                var result = _db.GetFirstOrDefault(u => u.Id == MenuItem.Id);
+                    if (files.Count> 0)
+                {
+                    string fileName_new = Guid.NewGuid().ToString();
+                    var uploads = Path.Combine(webRoothPath, @"Images\MenuItems");
+                    var extension = Path.GetExtension(files[0].FileName);
+
+                    var OLdImagePath = Path.Combine(webRoothPath, result.Image.TrimStart('\\'));
+                    if(System.IO.File.Exists(OLdImagePath))
+                    {
+                        System.IO.File.Delete(OLdImagePath);
+                    }
+
+                    using (var fileStream = new FileStream(Path.Combine(uploads, fileName_new + extension), FileMode.Create))
+                    {
+                        files[0].CopyTo(fileStream);
+                    }
+                    MenuItem.Image = @"\Images\MenuItems\" + fileName_new + extension;
+                    _db.Update(MenuItem);
+                    _db.Save();
+                    return RedirectToPage("Index");
+                }
+
 
             }
             return Page();

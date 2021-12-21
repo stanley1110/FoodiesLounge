@@ -22,7 +22,7 @@ namespace FoodiesLoungeDataAccess.Repository
         public void Update(MenuItem  menuItem)
         {
            var result = _db.menuItems.FirstOrDefault(u => u.Id == menuItem.Id);  
-            if (result == null)
+            if (result != null)
             {
                 result.Name = menuItem.Name;
                 result.Description = menuItem.Description;
