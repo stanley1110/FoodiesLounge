@@ -24,14 +24,15 @@ namespace FoodiesLounge.Pages.Admin.FoodTypes
         }
         public async Task<IActionResult> OnPost(FoodType foodType)
         {
-            
-               
-                    _db.Remove(foodType);
-                     _db.Save();
-                TempData["Success"] = $"{foodType.name} record successfully deleted";
-            return RedirectToPage("Index");
+            if (foodType != null)
+            {
 
-                
+                _db.Remove(foodType);
+                _db.Save();
+                TempData["Success"] = $"{foodType.name} record successfully deleted";
+                return RedirectToPage("Index");
+
+            }  
 
                 
             

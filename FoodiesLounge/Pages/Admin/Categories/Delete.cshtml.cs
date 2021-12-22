@@ -24,14 +24,15 @@ namespace FoodiesLounge.Pages.Admin.Categories
         }
         public async Task<IActionResult> OnPost(Category category)
         {
-            
-               
-                    _db.Remove(category);
-                   _db.Save();
-                TempData["Success"] = "Category successfully Deleted";
-                    return RedirectToPage("Index");
+            if(category.Id != null)
+            {
 
-                
+                _db.Remove(category);
+                _db.Save();
+                TempData["Success"] = "Category successfully Deleted";
+                return RedirectToPage("Index");
+
+            }
 
                 
             

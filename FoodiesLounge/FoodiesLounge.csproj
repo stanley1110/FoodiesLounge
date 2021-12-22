@@ -19,6 +19,7 @@
   <ItemGroup>
     <ProjectReference Include="..\FoodiesLoungeDataAccess\FoodiesLoungeDataAccess.csproj" />
     <ProjectReference Include="..\FoodiesLoungeModel\FoodiesLoungeModel.csproj" />
+    <ProjectReference Include="..\FoodiesLoungeUtilities\FoodiesLoungeUtilities.csproj" />
   </ItemGroup>
 
   <ItemGroup>

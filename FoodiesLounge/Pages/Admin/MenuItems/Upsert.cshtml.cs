@@ -2,6 +2,7 @@
 using FoodiesLoungeDataAccess;
 using FoodiesLoungeDataAccess.Repository;
 using FoodiesLoungeModel;
+using FoodiesLoungeUtilities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -49,18 +50,15 @@ namespace FoodiesLounge.Pages.Admin.MenuItems
         }
         public  IActionResult OnPost() 
         {
-            string webRoothPath = _webHost.WebRootPath;
+            var webRoothPath = _webHost.WebRootPath;
+            string fileName_new = Guid.NewGuid().ToString();
             var files = HttpContext.Request.Form.Files;
-            if(MenuItem.Id == 0)
-            {
-                string fileName_new = Guid.NewGuid().ToString();
-                var uploads = Path.Combine(webRoothPath, @"Images\MenuItems");
-                var extension = Path.GetExtension(files[0].FileName);
+            var uploads = Path.Combine(webRoothPath, @"Images\MenuItems");
+            var extension = Path.GetExtension(files[0].FileName);
 
-                using (var fileStream = new FileStream(Path.Combine(uploads, fileName_new + extension), FileMode.Create))
-                {
-                    files[0].CopyTo(fileStream);
-                }
+            if (MenuItem.Id == 0)
+            {
+                Utility.fileupload(MenuItem, fileName_new,files,extension,uploads);
                 MenuItem.Image = @"\Images\MenuItems\" + fileName_new + extension;
             _db.Add(MenuItem);
                 _db.Save();
@@ -68,23 +66,10 @@ namespace FoodiesLounge.Pages.Admin.MenuItems
             }
             else
             {
-                var result = _db.GetFirstOrDefault(u => u.Id == MenuItem.Id);
+                var menuItem = _db.GetFirstOrDefault(u => u.Id == MenuItem.Id);
                     if (files.Count> 0)
                 {
-                    string fileName_new = Guid.NewGuid().ToString();
-                    var uploads = Path.Combine(webRoothPath, @"Images\MenuItems");
-                    var extension = Path.GetExtension(files[0].FileName);
-
-                    var OLdImagePath = Path.Combine(webRoothPath, result.Image.TrimStart('\\'));
-                    if(System.IO.File.Exists(OLdImagePath))
-                    {
-                        System.IO.File.Delete(OLdImagePath);
-                    }
-
-                    using (var fileStream = new FileStream(Path.Combine(uploads, fileName_new + extension), FileMode.Create))
-                    {
-                        files[0].CopyTo(fileStream);
-                    }
+                    Utility.filedelete(menuItem, fileName_new,files,extension,uploads,webRoothPath);
                     MenuItem.Image = @"\Images\MenuItems\" + fileName_new + extension;
                     _db.Update(MenuItem);
                     _db.Save();
