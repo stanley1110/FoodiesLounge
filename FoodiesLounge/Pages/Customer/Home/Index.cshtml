@@ -1,0 +1,44 @@
+﻿@page
+@model FoodiesLounge.Pages.Customer.Home.IndexModel
+
+<div class="row container pb-3 backgroundWhite" >
+	@foreach(var category in Model.Category){
+	<h2 class="text-info pl-1"><b>@category.name</b></h2>
+	<div class="col-12">
+		<div class="row my-3">
+			@foreach(var menuItem in Model.MenuItem.Where(u=>u.CAtegoryId==category.Id)){
+
+				 <div class="card mb-1" style="max-width: 540px;">
+                <div class="row g-0">
+                    
+                    <div class="col-md-6">
+                        <img src="@menuItem.Image" width="100%" alt="">
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card-body">
+                            <p class="card-text">@Html.Raw(@menuItem.Description)</p>
+                    
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="card-footer ">
+                            <p class="card-text">
+                                <a class="btn btn-outline-primary float-right" asp-page="Details" asp-route-id="@menuItem.Id">
+                                    <i class="bi bi-eye-fill"></i> Show Details
+                                </a>
+                                <a class="btn btn-success text-white" 
+                                   asp-controller="Orders" 
+                                   asp-action="AddItemToShoppingCart" 
+                                   asp-route-id="@menuItem.Id">
+                                <i class="bi bi-cart-plus"></i> Add to Cart Price @menuItem.Price.ToString("c"))</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+              </div>
+
+			}
+		</div>
+	</div>
+	}
+</div>

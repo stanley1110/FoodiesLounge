@@ -15,6 +15,8 @@ namespace FoodiesLoungeDataAccess.Repository
         public Repository(AppDbContext db)
         {
             _db = db;
+            _db.menuItems.OrderBy(c => c.Name);
+           
             this.dbSet = db.Set<T>();
         }
         public void Add(T entity)
@@ -22,10 +24,14 @@ namespace FoodiesLoungeDataAccess.Repository
             dbSet.Add(entity);
         }
 
-        public IEnumerable<T> GetAll(string? includeProperties = null)
+        public IEnumerable<T> GetAll(Expression<Func<T, bool>>? filter = null, string ? includeProperties = null)
         {
             IQueryable<T> query = dbSet;
-            if(includeProperties != null)
+            if (filter != null)
+            {
+                query = query.Where(filter);
+            }
+            if (includeProperties != null)
             {
                 foreach(var includeProperty in includeProperties.Split(
                     new char[] {','}, StringSplitOptions.RemoveEmptyEntries))
@@ -37,12 +43,20 @@ namespace FoodiesLoungeDataAccess.Repository
             return query.ToList();  
         }
 
-        public T GetFirstOrDefault(Expression<Func<T, bool>>? filter = null)
+        public T GetFirstOrDefault(Expression<Func<T, bool>>? filter = null, string? includeProperties = null)
         {
             IQueryable<T> query = dbSet;
             if(filter != null)
             {
                 query = query.Where(filter);    
+            }
+            if (includeProperties != null)
+            {
+                foreach (var includeProperty in includeProperties.Split(
+                    new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
+                {
+                    query = query.Include(includeProperty);
+                }
             }
             return query.FirstOrDefault();
         }

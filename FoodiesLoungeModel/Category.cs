@@ -9,6 +9,6 @@ namespace FoodiesLoungeModel
         public string name { get; set; }
 
         [Display(Name ="Display Order")]
-        public string DisplayOrder { get; set; }
+        public int DisplayOrder { get; set; }
     }
 }
