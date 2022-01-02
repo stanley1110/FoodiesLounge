@@ -17,15 +17,17 @@
                     <div class="col-md-6">
                         <div class="card-body">
                             <p class="card-text">@Html.Raw(@menuItem.Description)</p>
+                            <p class="card-text">@Html.Raw(@menuItem.FoodType.name)</p>
+
                     
                         </div>
                     </div>
                     <div class="col-md-12">
                         <div class="card-footer ">
                             <p class="card-text">
-                                <a class="btn btn-outline-primary float-right" asp-page="Details" asp-route-id="@menuItem.Id">
-                                    <i class="bi bi-eye-fill"></i> Show Details
-                                </a>
+                               <div class="col-12 p-1">
+								<a asp-page="Details" asp-route-id="@menuItem.Id" class="btn btn-dark form-control btn-sm p-2" style="height:40px">View Details</a>
+							</div>
                                 <a class="btn btn-success text-white" 
                                    asp-controller="Orders" 
                                    asp-action="AddItemToShoppingCart" 

@@ -5,19 +5,20 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace FoodiesLounge.Pages.Customer.Home
 {
+ 
     public class DetailsModel : PageModel
     {
-        private readonly IMenuItemRepo  _menuItem;
+        private readonly IMenuItemRepo _menuItem;
+
         [BindProperty]
         public MenuItem menu { get; set; }
-        public DetailsModel(IMenuItemRepo menuItem)
+        public DetailsModel(IMenuItemRepo menu)
         {
-            _menuItem = menuItem;
+            _menuItem = menu;
         }
-        public void OnGet(int id)
+        public void OnGet(int Id)
         {
-            menu = _menuItem.GetFirstOrDefault(c=> c.Equals(id));
-
+            menu = _menuItem.GetFirstOrDefault(c=> c.Id == Id);
         }
     }
 }
