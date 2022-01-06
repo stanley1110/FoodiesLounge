@@ -11,29 +11,31 @@
 				 <div class="card mb-1" style="max-width: 540px;">
                 <div class="row g-0">
                     
-                    <div class="col-md-6">
-                        <img src="@menuItem.Image" width="100%" alt="">
+                    <div class="col-md-8">
+                        <img src="@menuItem.Image"style="max-width:fit-content" height="100%" alt="">
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <div class="card-body">
+                             <p class="text-info pl-3"><u><b>@Html.Raw(@menuItem.FoodType.name).ToString().ToUpper()</b></u></p>
                             <p class="card-text">@Html.Raw(@menuItem.Description)</p>
-                            <p class="card-text">@Html.Raw(@menuItem.FoodType.name)</p>
+                           
 
                     
                         </div>
                     </div>
                     <div class="col-md-12">
                         <div class="card-footer ">
-                            <p class="card-text">
+                          
                                <div class="col-12 p-1">
-								<a asp-page="Details" asp-route-id="@menuItem.Id" class="btn btn-dark form-control btn-sm p-2" style="height:40px">View Details</a>
+								<a asp-page="Details" asp-route-id="@menuItem.Id" class="btn btn-info form-control btn-sm p-2"width="100%" height="100%" >View Details</a>
+                                <a asp-page="Details" asp-route-id="@menuItem.Id" class="btn btn-success form-control btn-sm p-2" style="height:40px">Add to Cart Price ₦@menuItem.Price.ToString("0.00")</a>
 							</div>
-                                <a class="btn btn-success text-white" 
+                               @* <a class="btn btn-success text-white" 
                                    asp-controller="Orders" 
                                    asp-action="AddItemToShoppingCart" 
                                    asp-route-id="@menuItem.Id">
-                                <i class="bi bi-cart-plus"></i> Add to Cart Price @menuItem.Price.ToString("c"))</a>
-                            </p>
+                                <i class="bi bi-cart-plus"></i> Add to Cart Price ₦@menuItem.Price.ToString("0.00")</a>*@
+                          
                         </div>
                     </div>
                 </div>

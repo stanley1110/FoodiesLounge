@@ -21,6 +21,7 @@ namespace FoodiesLounge.Pages.Customer.Home
         public void OnGet()
         {
             MenuItem = _menuItem.GetAll(includeProperties: ("Category,FoodType")).OrderBy(c => c.Name);
+            
             Category = _categoryRepo.GetAll().OrderBy(c => c.DisplayOrder); 
 
         }

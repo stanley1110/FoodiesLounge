@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="Pages\Customer\ShoppedCart\Summary.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.1" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="6.0.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.1" />
@@ -25,8 +29,19 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Pages\Customer\ShoppingCart\" />
     <Folder Include="wwwroot\Images\MenuItems\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Pages\Customer\ShoppedCart\Summary.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="Pages\Customer\ShoppedCart\Summary.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Pages\Customer\ShoppedCart\Summary.cshtml" />
   </ItemGroup>
 
 </Project>

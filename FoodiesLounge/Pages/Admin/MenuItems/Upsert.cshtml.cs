@@ -50,14 +50,17 @@ namespace FoodiesLounge.Pages.Admin.MenuItems
         }
         public  IActionResult OnPost() 
         {
+
             var webRoothPath = _webHost.WebRootPath;
             string fileName_new = Guid.NewGuid().ToString();
-            var files = HttpContext.Request.Form.Files;
+         
             var uploads = Path.Combine(webRoothPath, @"Images\MenuItems");
-            var extension = Path.GetExtension(files[0].FileName);
-
+           
             if (MenuItem.Id == 0)
             {
+                var files = HttpContext.Request.Form.Files;
+                var extension = Path.GetExtension(files[0].FileName);
+
                 Utility.fileupload(MenuItem, fileName_new,files,extension,uploads);
                 MenuItem.Image = @"\Images\MenuItems\" + fileName_new + extension;
             _db.Add(MenuItem);
@@ -66,15 +69,27 @@ namespace FoodiesLounge.Pages.Admin.MenuItems
             }
             else
             {
+                var files = HttpContext.Request.Form.Files;
+               
+
                 var menuItem = _db.GetFirstOrDefault(u => u.Id == MenuItem.Id);
-                    if (files.Count> 0)
+                if (files.Count > 0)
                 {
-                    Utility.filedelete(menuItem, fileName_new,files,extension,uploads,webRoothPath);
+                    var extension = Path.GetExtension(files[0].FileName);
+                    if (menuItem.Image != null)
+                    {
+                        Utility.filedelete(menuItem, fileName_new, files, extension, uploads, webRoothPath);
+                    }
+                  
                     MenuItem.Image = @"\Images\MenuItems\" + fileName_new + extension;
+                    Utility.fileupload(MenuItem, fileName_new, files, extension, uploads);
+                }
+               
+                
                     _db.Update(MenuItem);
                     _db.Save();
                     return RedirectToPage("Index");
-                }
+                
 
 
             }

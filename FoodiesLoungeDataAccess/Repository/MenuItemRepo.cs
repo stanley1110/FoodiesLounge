@@ -26,10 +26,9 @@ namespace FoodiesLoungeDataAccess.Repository
             {
                 result.Name = menuItem.Name;
                 result.Description = menuItem.Description;
-                if(result.Image != null)
-                {
+               
                     result.Image = menuItem.Image;
-                }
+              
              
                 result.Price = menuItem.Price;
                 result.CAtegoryId = menuItem.CAtegoryId;
