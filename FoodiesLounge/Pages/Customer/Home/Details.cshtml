@@ -3,15 +3,17 @@
 
 <div class="">
     <form method="post">
+        <input asp-for="Cart.MenuItemId" hidden/>
+         <input asp-for="Cart.ApplicationUserId" hidden />
         <div class="container backgroundWhite">
             <div class="card">
                 <div class="card-header">
                     <div class="text-light ml-0 row ">
                     <div class="col-12 col-md-6 pt-2">
-                        <h1 class="text-primary">@Model.menu.Name</h1>
+                        <h1 class="text-primary">@Model.Cart.MenuItem.Name</h1>
                     </div>
                     <div class="col-12 col-md-6 text-end pt-2">
-                        <h1 class="text-muted"> $@Model.menu.Price</h1>
+                        <h1 class="text-muted"> $@Model.Cart.MenuItem.Price</h1>
                     </div>
                     </div>
                 </div>
@@ -21,22 +23,22 @@
                             <div class="col-12 col-lg-8">
                                 <div class="row">
                                     <div class="col-12">
-                                         <span class="badge bg-warning p-3 h3">@Model.menu.Category.name</span>
-                                        <span class="badge bg-dark p-3">@Model.menu.FoodType.name</span>
+                                         <span class="badge bg-warning p-3 h3">@Model.Cart.MenuItem.Category.name</span>
+                                        <span class="badge bg-dark p-3">@Model.Cart.MenuItem.FoodType.name</span>
                                      
                                         <h3 class="text-success"></h3>
-                                        <p class="text-secondary">@Html.Raw(Model.menu.Description)</p>
+                                        <p class="text-secondary">@Html.Raw(Model.Cart.MenuItem.Description)</p>
                                          <div class="form-floating my-2">
-                                            <input asp-for="count" class="form-control" aria-required="true" />
-                                            <label asp-for="count" ></label>
-                                            <span asp-validation-for="count" class="text-danger"></span>
+                                            <input asp-for="Cart.Count" class="form-control" aria-required="true" />
+                                            <label asp-for="Cart.Count" ></label>
+                                            <span asp-validation-for="Cart.Count" class="text-danger"></span>
                                         </div>
                                            
                                     </div>
                                 </div>
                             </div>
                             <div class="col-12 col-lg-4 p-1 text-center">
-                                <img src="@Model.menu.Image" width="100%" class="rounded" />
+                                <img src="@Model.Cart.MenuItem.Image" width="100%" class="rounded" />
                             </div>
                         </div>
                     </div>

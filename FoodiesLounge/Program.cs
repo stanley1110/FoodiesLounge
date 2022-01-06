@@ -18,10 +18,18 @@ builder.Services.AddIdentity<IdentityUser,IdentityRole>()
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DataConnection")));
 builder.Services.AddScoped<ICategoryRepo, CategoryRepo>();
+builder.Services.AddScoped<IShoppingCart, ShoppingCartRepo>();
 builder.Services.AddScoped<IFoodTypeRepo, FoodTypeRepo>();
 builder.Services.AddScoped<IMenuItemRepo, MenuItemRepo>();
 builder.Services.Configure<EmailSettings>(builder.Configuration.GetSection("EmailSettings"));
 builder.Services.AddScoped<IEmailSender, EmailSender>();
+builder.Services.ConfigureApplicationCookie(
+    options =>
+    {
+        options.LogoutPath = "/Identity/Account/Logout";
+        options.LoginPath = "/Identity/Account/Login";
+        options.AccessDeniedPath = "/Identity/Account/AccessDenied";
+    });
 
 var app = builder.Build();
 

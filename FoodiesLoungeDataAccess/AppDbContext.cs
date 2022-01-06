@@ -15,6 +15,8 @@ namespace FoodiesLoungeDataAccess
             public DbSet<Category> Categories { get; set; }
         public DbSet<FoodType> FoodTypes { get; set; }
         public DbSet<MenuItem>  menuItems { get; set; }
+        public DbSet<ApplicationUser>  users { get; set; }
+
         public DbSet<ShoppingCart>  shoppingCarts { get; set; }
 
     }
