@@ -4,7 +4,7 @@
 
 namespace FoodiesLoungeDataAccess.Migrations
 {
-    public partial class initial1 : Migration
+    public partial class MyFirstMigration1 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

@@ -21,6 +21,9 @@ builder.Services.AddScoped<ICategoryRepo, CategoryRepo>();
 builder.Services.AddScoped<IShoppingCart, ShoppingCartRepo>();
 builder.Services.AddScoped<IFoodTypeRepo, FoodTypeRepo>();
 builder.Services.AddScoped<IMenuItemRepo, MenuItemRepo>();
+builder.Services.AddScoped<IOrderView, OrderViewRepo>();
+builder.Services.AddScoped<IOrderDetail,  OrderDetailRepo>();
+builder.Services.AddScoped<IApplicationUser, ApplicationUserRepo>();
 builder.Services.Configure<EmailSettings>(builder.Configuration.GetSection("EmailSettings"));
 builder.Services.AddScoped<IEmailSender, EmailSender>();
 builder.Services.ConfigureApplicationCookie(

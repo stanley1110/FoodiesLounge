@@ -3,32 +3,37 @@
 
 <div class="row container pb-3 backgroundWhite" >
 	@foreach(var category in Model.Category){
-	<h2 class="text-info pl-1"><b>@category.name</b></h2>
+	<h2 class="text-info pl-1"><u><b>@category.name</b></u></h2>
 	<div class="col-12">
 		<div class="row my-3">
 			@foreach(var menuItem in Model.MenuItem.Where(u=>u.CAtegoryId==category.Id)){
 
-				 <div class="card mb-1" style="max-width: 540px;">
+				 <div class="card mb-1" style="max-width: 350px;">
                 <div class="row g-0">
                     
-                    <div class="col-md-8">
-                        <img src="@menuItem.Image"style="max-width:fit-content" height="100%" alt="">
-                    </div>
-                    <div class="col-md-4">
-                        <div class="card-body">
-                             <p class="text-info pl-3"><u><b>@Html.Raw(@menuItem.FoodType.name).ToString().ToUpper()</b></u></p>
-                            <p class="card-text">@Html.Raw(@menuItem.Description)</p>
-                           
-
                     
-                        </div>
+                        <img src="@menuItem.Image"  class="img-circle"  alt="Responsive Image"
+             width="307" height="240" />
+                    
+                   
                     </div>
                     <div class="col-md-12">
+                      
+                        <div class="card-body">
+                             <p class="text-info pl-3"><u><b>@Html.Raw(@menuItem.FoodType.name).ToString().ToUpper()</b></u></p>
+                            <p class="card-text">@Html.Raw(@menuItem.Description).ToString().Trim()</p>
+
+                       
+                        </div>
                         <div class="card-footer ">
                           
                                <div class="col-12 p-1">
-								<a asp-page="Details" asp-route-id="@menuItem.Id" class="btn btn-info form-control btn-sm p-2"width="100%" height="100%" >View Details</a>
-                                <a asp-page="Details" asp-route-id="@menuItem.Id" class="btn btn-success form-control btn-sm p-2" style="height:40px">Add to Cart Price ₦@menuItem.Price.ToString("0.00")</a>
+                                   <div class="col-12  pb-1">
+								<a asp-page="Details" asp-route-id="@menuItem.Id" class="btn btn-info form-control "width="100%" height="100%" >View Details</a>
+                                </div>
+                                 <div class=" col-12 ">
+                                <a  class="btn btn-success form-control btn-sm p-2" style="height:40px">Add to Cart Price ₦@menuItem.Price.ToString("0.00")</a>
+                                </div>
 							</div>
                                @* <a class="btn btn-success text-white" 
                                    asp-controller="Orders" 
@@ -39,7 +44,7 @@
                         </div>
                     </div>
                 </div>
-              </div>
+              
 
 			}
 		</div>

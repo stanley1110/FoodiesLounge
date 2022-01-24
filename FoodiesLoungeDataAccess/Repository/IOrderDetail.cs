@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace FoodiesLoungeDataAccess.Repository
 {
-    public interface IOrderView: IRepository<OrderOverview>
+    public interface IOrderDetail: IRepository<OrderDetails>
     {
-        void Update(OrderOverview  overview); 
+        void Update(OrderDetails  orderDetails); 
         void Save();    
     }
 }
