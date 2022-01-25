@@ -7,6 +7,7 @@ using static FoodiesLoungeUtilities.EmailSender;
 using System.Configuration;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using FoodiesLoungeUtilities;
+using FoodiesLoungeModel;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -26,6 +27,7 @@ builder.Services.AddScoped<IOrderDetail,  OrderDetailRepo>();
 builder.Services.AddScoped<IApplicationUser, ApplicationUserRepo>();
 builder.Services.Configure<EmailSettings>(builder.Configuration.GetSection("EmailSettings"));
 builder.Services.AddScoped<IEmailSender, EmailSender>();
+builder.Services.Configure<Paystack>(builder.Configuration.GetSection("Paystack"));
 builder.Services.ConfigureApplicationCookie(
     options =>
     {
