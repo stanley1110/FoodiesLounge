@@ -1,10 +1,11 @@
-﻿<!DOCTYPE html>
+﻿@using FoodiesLoungeModel
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - FoodiesLounge</title>
-    <link rel="stylesheet" href="~/css/bootswatchSolasr.css" />
+    <link rel="stylesheet" href="~/css/lux.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/FoodiesLounge.styles.css" asp-append-version="true" />
      <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
@@ -14,7 +15,7 @@
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark  bg-dark  border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark  bg-primary  border-bottom box-shadow mb-3">
             <div class="container">
                 <a class="navbar-brand" asp-area="" asp-page="/Index">FoodiesLounge</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
@@ -26,12 +27,12 @@
                         <li class="nav-item">
                             <a class="nav-link " asp-area="" asp-page="/Index">Home</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link " asp-area="" asp-page="/Privacy">Privacy</a>
-                        </li>
-                        
-                         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Admin</a>
+                       
+                      
+                      @if (User.IsInRole(Roles.ManagerRole))
+                        {
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Admin</a>
           <div class="dropdown-menu">
             <a class="dropdown-item " asp-area="" asp-page="/Admin/Categories/Index">Category</a>
             <a class="dropdown-item " asp-area="" asp-page="/Admin/FoodTypes/Index">Food Type</a>
@@ -40,6 +41,7 @@
             
           </div>
         </li>
+        }
         <li>
             <a class="nav-link text-white-50" asp-area="" asp-page="/Customer/ShoppedCart/Index">
                 <i class="bi bi-cart"></i>
@@ -47,7 +49,10 @@
             </a>
 
         </li>
-       
+      @*   <li class="nav-item">
+                            <a class="nav-link " asp-area="" asp-page="/Order/OrderList">Order List</a>
+                        </li>
+       *@
                     </ul>
                      <partial name="_loginPartial"/>
                 </div>
